@@ -9,6 +9,7 @@ use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Auth\AuthenticationException;
 
 class Handler extends ExceptionHandler
 {
@@ -70,5 +71,17 @@ class Handler extends ExceptionHandler
         }
 
         return parent::render($request, $e);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if($request->expectsJson()){
+            return $this->errorResponse(
+                $exception->getMessage(),
+                Response::HTTP_UNAUTHORIZED
+            );
+        }else{
+            return redirect()->guest($exception->redirectTo() ?? route('login'));
+        }
     }
 }

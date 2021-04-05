@@ -6,6 +6,7 @@ use Illuminate\Database\Seeder;
 use App\Models\Animal;
 use App\Models\User;
 use Illuminate\Support\Facades\Schema;
+use App\Models\Type;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,9 +19,11 @@ class DatabaseSeeder extends Seeder
     {
         Schema::disableForeignKeyConstraints();
         Animal::truncate();
-        User::truncate();
+        // User::truncate();
+        Type::truncate();
 
-        User::factory(5)->create();
+        Type::factory(5)->create();
+        // User::factory(5)->create();
         Animal::factory(10000)->create();
         Schema::enableForeignKeyConstraints();
     }
