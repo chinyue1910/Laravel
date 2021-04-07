@@ -30,5 +30,10 @@ class AuthServiceProvider extends ServiceProvider
         Passport::tokensExpireIn(now()->addDays(15));
 
         Passport::refreshTokensExpireIn(now()->addDays(30));
+
+        Passport::tokensCan([
+            'create-animals' => '建立動物資訊',
+            'user-info' => '使用者資訊'
+        ]);
     }
 }

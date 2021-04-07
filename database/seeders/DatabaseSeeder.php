@@ -18,12 +18,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Schema::disableForeignKeyConstraints();
-        Animal::truncate();
-        // User::truncate();
         Type::truncate();
+        Animal::truncate();
+        User::truncate();
 
         Type::factory(5)->create();
-        // User::factory(5)->create();
+        User::factory(5)->create();
         Animal::factory(10000)->create();
         Schema::enableForeignKeyConstraints();
     }

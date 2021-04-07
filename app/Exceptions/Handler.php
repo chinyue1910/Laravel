@@ -10,6 +10,7 @@ use Throwable;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Auth\Access\AuthorizationException;
 
 class Handler extends ExceptionHandler
 {
@@ -66,6 +67,12 @@ class Handler extends ExceptionHandler
                 return $this->errorResponse(
                     $e->getMessage(),
                     Response::HTTP_METHOD_NOT_ALLOWED
+                );
+            }
+            if($e instanceof AuthorizationException){
+                return $this->errorResponse(
+                    $e->getMessage(),
+                    Response::HTTP_FORBIDDEN
                 );
             }
         }
