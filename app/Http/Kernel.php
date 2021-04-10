@@ -21,10 +21,6 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
-        // 檢查所有 Scope
-        'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
-        // 檢查至少有一個被允許
-        'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
     ];
 
     /**
@@ -44,6 +40,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
+            'custom.header:X-Application-Name,Victor RESTful API',
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
@@ -66,5 +63,12 @@ class Kernel extends HttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        // 檢查所有 Scope
+        'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
+        // 檢查至少有一個被允許
+        'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+        // 客戶端憑證
+        'client' => \Laravel\Passport\Http\Middleware\CheckClientCredentials::class,
+        'custom.header' => \App\Http\Middleware\CustomHeaderMiddleware::class,
     ];
 }

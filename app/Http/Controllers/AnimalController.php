@@ -16,6 +16,8 @@ class AnimalController extends Controller
         $this->middleware('scopes:create-animals', ['only' => ['store']]);
 
         $this->middleware('auth:api', ['except' => ['index', 'show']]);
+
+        $this->middleware('client', ['only' => ['index', 'show']]);
     }
 
     /**
@@ -100,9 +102,11 @@ class AnimalController extends Controller
             'personality' => 'nullable',
         ]);
 
-        $request['user_id'] = 1;
+        // $request['user_id'] = 1;
+        // $animal = Animal::create($request->all());
 
-        $animal = Animal::create($request->all());
+        $animal = auth()->user()->animals()->create($request->all());
+
         $animal = $animal->refresh();
         return response($animal, Response::HTTP_CREATED);
     }
@@ -148,9 +152,9 @@ class AnimalController extends Controller
             'personality' => 'nullable|string',
         ]);
 
-        $request['user_id'] = 1;
-
+        // $request['user_id'] = 1;
         $animal->update($request->all());
+
         return response($animal, Response::HTTP_OK);
     }
 
