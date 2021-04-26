@@ -8,6 +8,7 @@ use App\Models\Animal;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Symfony\Component\HttpFoundation\Response;
+use App\Http\Requests\StoreAnimalRequest;
 
 class AnimalController extends Controller
 {
@@ -90,19 +91,19 @@ class AnimalController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAnimalRequest $request)
     {
         // $this->authorize('create', Animal::class);
 
-        $this->validate($request, [
-            'type_id' => 'nullable|exists:types,id',
-            'name' => 'required|string|max:255',
-            'birthday' => 'nullable|date',
-            'area' => 'nullable|string|max:255',
-            'fix' => 'required|boolean',
-            'description' => 'nullable',
-            'personality' => 'nullable',
-        ]);
+        // $this->validate($request, [
+        //     'type_id' => 'nullable|exists:types,id',
+        //     'name' => 'required|string|max:255',
+        //     'birthday' => 'nullable|date',
+        //     'area' => 'nullable|string|max:255',
+        //     'fix' => 'required|boolean',
+        //     'description' => 'nullable',
+        //     'personality' => 'nullable',
+        // ]);
 
         // $request['user_id'] = 1;
         // $animal = Animal::create($request->all());
